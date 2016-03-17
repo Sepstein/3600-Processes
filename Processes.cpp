@@ -15,16 +15,29 @@ Return:
 	void
 ***************************************************************/
 void Process::create_processes(int number_to_create){
-	while(processes_completed!=TOTAL_PROCESSES){
-		if((time_passed%TOTAL_PROCESSES==0)&&(number_of_processes!=TOTAL_PROCESSES))
+	while(processes_completed!=number_to_create){
+		if((time_passed%TIME_QUANTUM==0)&&(number_of_processes!=number_to_create))
 			add_process();
-		
+		if(Process_list.empty())
+			continue;
+		round_robin();
+		++time_passed;
 	}
-	for(int i=0;i<number_to_create;i++)
-		add_process();//adds a new process to the queue;
 	std::cout<<"Done! Find process results in generated text file \"Procceses_output.txt\"."<<std::endl;
 }
 
+void Process::round_robin(){
+	++Process_list.front().time_spent;
+	if(Process_list.front().time_spent==Process_list.front().number_of_cycles){
+		Process_list.front().completion_time=time_passed;
+		Process_list.front().wait_time=Process_list.front().completion_time-Process_list.front().number_of_cycles-Process_list.front().entrance_time;
+		print_to_file();
+		Process_list.erase(Process_list.begin());
+		processes_completed++;
+	}
+	else if((Process_list.front().time_spent%TIME_QUANTUM==0)&&(number_of_processes>1))
+		std::rotate(Process_list.begin(),Process_list.begin()+1,Process_list.end());
+}
 /*******************************************************************
 Function: Write processes to specivied file
 Param:
@@ -34,18 +47,17 @@ Return:
 ***************************************************************/
 void Process::print_to_file(){
 	std::ofstream myfile;
-	myfile.open("Processes_output.txt");
+	if(processes_completed==0)
+		myfile.open("Processes_output.txt",std::fstream::out);
+	else
+		myfile.open("Processes_output.txt",std::fstream::app|std::fstream::out);
 	myfile<<"****************************************************"<<std::endl;
-	myfile<<"List of Processes"<<std::endl<<std::endl;
-	myfile<<"--------------------------------------------------"<<std::endl;
-	for(int i=0;i<Process_list.size();i++){
-		myfile<<"Process Number: "<<i+1<<std::endl<<std::endl;//Prints each Process in the order they are stored in the queue.
-		myfile<<"Process ID: "<<Process_list[i].process_ID<<std::endl;
-		myfile<<"Memory Used: "<<Process_list[i].memory_footprint<<"KB"<<std::endl;
-		myfile<<"Number of Cycles: "<<Process_list[i].number_of_cycles<<std::endl;
-		if(i+1!=Process_list.size())
-			myfile<<"--------------------------------------------------"<<std::endl;
-	}
+	myfile<<"Process ID: "<<Process_list.front().process_ID<<std::endl;
+	myfile<<"Memory Used: "<<Process_list.front().memory_footprint<<"KB"<<std::endl;
+	myfile<<"Number of Cycles: "<<Process_list.front().number_of_cycles<<std::endl<<std::endl;
+	myfile<<"Entrance time: "<<Process_list.front().entrance_time<<std::endl;
+	myfile<<"Completion time: "<<Process_list.front().completion_time<<std::endl;
+	myfile<<"Wait time: "<<Process_list.front().wait_time<<std::endl;
 	myfile<<"****************************************************"<<std::endl<<std::endl;
 	myfile.close();
 }
@@ -114,13 +126,16 @@ Param:
 	long int cycles: Number of cycles that it takes for process to complete
 	int memory: Amount of memory process uses
 Return:
-	void
+	voidadd_
 ***************************************************************************/
-Process::Process_values::Process_values(int id, long int cycles, float memory){
+Process::Process_values::Process_values(int id, long int cycles, float memory,int time){
 	process_ID=id;//values passed in are assigned to process
 	number_of_cycles=cycles;
 	memory_footprint=memory;
 	time_spent=0;
+	completion_time=0;
+	entrance_time=time;
+	wait_time=0;
 }
 
 /*******************************************************************
@@ -133,14 +148,8 @@ Return:
 void Process::add_process(){
 	int new_cycles=generate_cycles();//generates cycles and memory to go along with the new process
 	int new_memory=generate_memory();
-	if(Process_list.empty()){
-		Process_values new_process(1,new_cycles,new_memory);//first process always starts with 1 and incremented from there
-		Process_list.push_back(new_process);
-	}
-	else{
-		Process_values new_process(Process_list.back().process_ID+1,new_cycles,new_memory);//new cycles pushed to back of queue;
-		Process_list.push_back(new_process);
-	}
+	Process_values new_process(number_of_processes,new_cycles,new_memory,(int)time_passed);//first process always starts with 1 and incremented from there
+	Process_list.push_back(new_process);
 	++number_of_processes;//increments number of process
 	total_memory+=new_memory;
 	total_cycles+=new_cycles;

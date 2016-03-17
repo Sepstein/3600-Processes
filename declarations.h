@@ -10,6 +10,7 @@ File: Contains libraries and constant declarations.
 #include <time.h>
 #include <cstdlib>
 #include <fstream>
+#include <algorithm>
 
 //defintion of the processor property ranges as defined in the problem.
 const int MAX_CYCLE=11000;

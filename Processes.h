@@ -14,7 +14,10 @@ class Process{
 			long int number_of_cycles;//number of cycles reuired to finish process
 			int memory_footprint;//amount of memory used by process
 			int time_spent;
-			Process_values(int,long int,float);//initializer for each process
+			int completion_time;
+			int entrance_time;
+			int wait_time;
+			Process_values(int,long int,float,int);//initializer for each process
 		};
 		std::vector<struct Process_values> Process_list;//list of processors
 		float total_memory;//sum of memory used by processes
@@ -24,6 +27,7 @@ class Process{
 		long int generate_cycles();//generates the number of cycles based on given range
 		float generate_memory();//generates amount of memory given range
 		void add_process();//adds new process
+		void round_robin();
 		int cycles_in_queue;
 		int processes_completed;
 		long int time_passed;

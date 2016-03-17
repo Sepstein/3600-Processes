@@ -12,6 +12,6 @@ int main(int argc,char* argv[]){
 	Process process;
 	process.create_processes(50);//creates 100 process for assignment
 //	process.print_stats();//prints stats from generated file
-	process.print_to_file();
+//	process.print_to_file();
 	return 0;
 }
