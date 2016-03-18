@@ -11,6 +11,7 @@ File: Contains libraries and constant declarations.
 #include <cstdlib>
 #include <fstream>
 #include <algorithm>
+#include <strings.h>
 
 //defintion of the processor property ranges as defined in the problem.
 const int MAX_CYCLE=11000;

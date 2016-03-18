@@ -32,11 +32,15 @@ class Process{
 		int processes_completed;
 		long int time_passed;
 		int number_of_processes;
+		int average_wait_time;
+		int average_completion_time;
 	public:
 		Process();
 		~Process(){};
-		void create_processes(int);//creates a specified number of processes
-		void print_to_file();
-//		void print_stats();//print statistics regarding to how much memory and cycles the ueued process take
+		void create_processes(int,create_processes);//creates a specified number of processes
+		void print_to_file(std::string);
+		void print_stats();//print statistics regarding to how much memory and cycles the ueued process take
 		void print_processes();//print all processes in queue
 };
+
+void display_options();

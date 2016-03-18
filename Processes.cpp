@@ -14,7 +14,7 @@ Param:
 Return:
 	void
 ***************************************************************/
-void Process::create_processes(int number_to_create){
+void Process::create_processes(int number_to_create,std::string process_method){
 	while(processes_completed!=number_to_create){
 		if((time_passed%TIME_QUANTUM==0)&&(number_of_processes!=number_to_create))
 			add_process();
@@ -29,14 +29,18 @@ void Process::create_processes(int number_to_create){
 void Process::round_robin(){
 	++Process_list.front().time_spent;
 	if(Process_list.front().time_spent==Process_list.front().number_of_cycles){
+		++processes_completed;
 		Process_list.front().completion_time=time_passed;
+		average_completion_time=(average_completion_time+Process_list.front().completion_time)/processes_completed;
 		Process_list.front().wait_time=Process_list.front().completion_time-Process_list.front().number_of_cycles-Process_list.front().entrance_time;
-		print_to_file();
+		average_wait_time=(average_wait_time+Process_list.front().wait_time)/processes_completed;
+		print_to_file("round_robin_sort.txt");
 		Process_list.erase(Process_list.begin());
-		processes_completed++;
 	}
-	else if((Process_list.front().time_spent%TIME_QUANTUM==0)&&(number_of_processes>1))
+	else if((Process_list.front().time_spent%TIME_QUANTUM==0)&&(number_of_processes>1)){
 		std::rotate(Process_list.begin(),Process_list.begin()+1,Process_list.end());
+	}
+	time_passed+=10;
 }
 /*******************************************************************
 Function: Write processes to specivied file
@@ -45,12 +49,12 @@ Param:
 Return:
 	void
 ***************************************************************/
-void Process::print_to_file(){
+void Process::print_to_file(std::string sort_name){
 	std::ofstream myfile;
 	if(processes_completed==0)
-		myfile.open("Processes_output.txt",std::fstream::out);
+		myfile.open(sort_name.c_str(),std::fstream::out);
 	else
-		myfile.open("Processes_output.txt",std::fstream::app|std::fstream::out);
+		myfile.open(sort_name.c_str(),std::fstream::app|std::fstream::out);
 	myfile<<"****************************************************"<<std::endl;
 	myfile<<"Process ID: "<<Process_list.front().process_ID<<std::endl;
 	myfile<<"Memory Used: "<<Process_list.front().memory_footprint<<"KB"<<std::endl;
@@ -69,14 +73,16 @@ Param:
 Return:
 	void
 ***************************************************************/
-/*void Process::print_stats(){
+void Process::print_stats(){
 	std::cout<<"****************************************************"<<std::endl;
 	std::cout<<"Process Stats"<<std::endl<<std::endl;//prints all process stats based on processes created
-	std::cout<<"Total processes: "<<total_processes<<std::endl;
+	std::cout<<"Total processes: "<<processes_completed<<std::endl;
 	std::cout<<"Average memory: "<<average_memory<<"KB"<<std::endl;
-	std::cout<<"Average cycles: "<<average_cycles<<std::endl;
+	std::cout<<"Average cycles: "<<average_cycles<<std::endl<<std::endl;
+	std::cout<<"Average wait time: "<<average_wait_time<<std::endl;
+	std::cout<<"Average completion time: "<<average_completion_time<<std::endl;
 	std::cout<<"****************************************************"<<std::endl;
-}*/
+}
 
 /*******************************************************************
 Function: Prints each process and the specifics assigned to it.
@@ -109,7 +115,6 @@ Return:
 ***************************************************************/
 Process::Process(){
 	total_memory=0;
-//	total_processes=0;
 	total_cycles=0;
 	average_cycles=0;
 	average_memory=0;
@@ -117,6 +122,8 @@ Process::Process(){
 	processes_completed=0;
 	time_passed=0;
 	number_of_processes=0;
+	average_wait_time=0;
+	average_completion_time=0;
 }
 
 /**********************************************************************
