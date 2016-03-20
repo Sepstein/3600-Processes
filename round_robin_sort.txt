@@ -29658,3 +29658,1003 @@ Completion time: 103305
 Wait time: 88892
 ****************************************************
 
+****************************************************
+Process ID: 20
+Memory Used: 85KB
+Number of Cycles: 1029
+
+Entrance time: 1300
+Completion time: 61948
+Wait time: 59619
+****************************************************
+
+****************************************************
+Process ID: 48
+Memory Used: 19KB
+Number of Cycles: 1149
+
+Entrance time: 2950
+Completion time: 71657
+Wait time: 67558
+****************************************************
+
+****************************************************
+Process ID: 42
+Memory Used: 5KB
+Number of Cycles: 1352
+
+Entrance time: 2600
+Completion time: 85339
+Wait time: 81387
+****************************************************
+
+****************************************************
+Process ID: 1
+Memory Used: 9KB
+Number of Cycles: 1786
+
+Entrance time: 50
+Completion time: 90295
+Wait time: 88459
+****************************************************
+
+****************************************************
+Process ID: 49
+Memory Used: 19KB
+Number of Cycles: 1523
+
+Entrance time: 3000
+Completion time: 94458
+Wait time: 89935
+****************************************************
+
+****************************************************
+Process ID: 17
+Memory Used: 4KB
+Number of Cycles: 1682
+
+Entrance time: 1100
+Completion time: 98390
+Wait time: 95608
+****************************************************
+
+****************************************************
+Process ID: 25
+Memory Used: 1KB
+Number of Cycles: 1860
+
+Entrance time: 1600
+Completion time: 110460
+Wait time: 107000
+****************************************************
+
+****************************************************
+Process ID: 4
+Memory Used: 3KB
+Number of Cycles: 2047
+
+Entrance time: 300
+Completion time: 111227
+Wait time: 108880
+****************************************************
+
+****************************************************
+Process ID: 2
+Memory Used: 17KB
+Number of Cycles: 2341
+
+Entrance time: 150
+Completion time: 124648
+Wait time: 122157
+****************************************************
+
+****************************************************
+Process ID: 15
+Memory Used: 17KB
+Number of Cycles: 2312
+
+Entrance time: 1000
+Completion time: 131140
+Wait time: 127828
+****************************************************
+
+****************************************************
+Process ID: 28
+Memory Used: 76KB
+Number of Cycles: 2376
+
+Entrance time: 1750
+Completion time: 135666
+Wait time: 131540
+****************************************************
+
+****************************************************
+Process ID: 31
+Memory Used: 16KB
+Number of Cycles: 2430
+
+Entrance time: 1950
+Completion time: 138276
+Wait time: 133896
+****************************************************
+
+****************************************************
+Process ID: 40
+Memory Used: 6KB
+Number of Cycles: 2463
+
+Entrance time: 2500
+Completion time: 141349
+Wait time: 136386
+****************************************************
+
+****************************************************
+Process ID: 39
+Memory Used: 3KB
+Number of Cycles: 2740
+
+Entrance time: 2400
+Completion time: 152429
+Wait time: 147289
+****************************************************
+
+****************************************************
+Process ID: 43
+Memory Used: 53KB
+Number of Cycles: 3033
+
+Entrance time: 2650
+Completion time: 165602
+Wait time: 159919
+****************************************************
+
+****************************************************
+Process ID: 10
+Memory Used: 3KB
+Number of Cycles: 3201
+
+Entrance time: 700
+Completion time: 169683
+Wait time: 165782
+****************************************************
+
+****************************************************
+Process ID: 47
+Memory Used: 7KB
+Number of Cycles: 3647
+
+Entrance time: 2900
+Completion time: 190610
+Wait time: 184063
+****************************************************
+
+****************************************************
+Process ID: 16
+Memory Used: 88KB
+Number of Cycles: 3815
+
+Entrance time: 1050
+Completion time: 195365
+Wait time: 190500
+****************************************************
+
+****************************************************
+Process ID: 38
+Memory Used: 2KB
+Number of Cycles: 3937
+
+Entrance time: 2350
+Completion time: 201642
+Wait time: 195355
+****************************************************
+
+****************************************************
+Process ID: 18
+Memory Used: 1KB
+Number of Cycles: 4038
+
+Entrance time: 1150
+Completion time: 203360
+Wait time: 198172
+****************************************************
+
+****************************************************
+Process ID: 8
+Memory Used: 6KB
+Number of Cycles: 4185
+
+Entrance time: 550
+Completion time: 206755
+Wait time: 202020
+****************************************************
+
+****************************************************
+Process ID: 41
+Memory Used: 14KB
+Number of Cycles: 4229
+
+Entrance time: 2550
+Completion time: 212364
+Wait time: 205585
+****************************************************
+
+****************************************************
+Process ID: 45
+Memory Used: 16KB
+Number of Cycles: 4229
+
+Entrance time: 2800
+Completion time: 212633
+Wait time: 205604
+****************************************************
+
+****************************************************
+Process ID: 37
+Memory Used: 1KB
+Number of Cycles: 4663
+
+Entrance time: 2300
+Completion time: 226806
+Wait time: 219843
+****************************************************
+
+****************************************************
+Process ID: 46
+Memory Used: 1KB
+Number of Cycles: 4901
+
+Entrance time: 2850
+Completion time: 235027
+Wait time: 227276
+****************************************************
+
+****************************************************
+Process ID: 35
+Memory Used: 19KB
+Number of Cycles: 4971
+
+Entrance time: 2200
+Completion time: 236008
+Wait time: 228837
+****************************************************
+
+****************************************************
+Process ID: 11
+Memory Used: 16KB
+Number of Cycles: 5395
+
+Entrance time: 750
+Completion time: 245113
+Wait time: 238968
+****************************************************
+
+****************************************************
+Process ID: 26
+Memory Used: 6KB
+Number of Cycles: 5537
+
+Entrance time: 1650
+Completion time: 250970
+Wait time: 243783
+****************************************************
+
+****************************************************
+Process ID: 30
+Memory Used: 10KB
+Number of Cycles: 5558
+
+Entrance time: 1900
+Completion time: 252658
+Wait time: 245200
+****************************************************
+
+****************************************************
+Process ID: 21
+Memory Used: 5KB
+Number of Cycles: 5837
+
+Entrance time: 1350
+Completion time: 258095
+Wait time: 250908
+****************************************************
+
+****************************************************
+Process ID: 27
+Memory Used: 3KB
+Number of Cycles: 6655
+
+Entrance time: 1700
+Completion time: 279040
+Wait time: 270685
+****************************************************
+
+****************************************************
+Process ID: 3
+Memory Used: 13KB
+Number of Cycles: 6988
+
+Entrance time: 200
+Completion time: 282198
+Wait time: 275010
+****************************************************
+
+****************************************************
+Process ID: 12
+Memory Used: 12KB
+Number of Cycles: 6963
+
+Entrance time: 800
+Completion time: 284431
+Wait time: 276668
+****************************************************
+
+****************************************************
+Process ID: 0
+Memory Used: 8KB
+Number of Cycles: 7455
+
+Entrance time: 0
+Completion time: 288636
+Wait time: 281181
+****************************************************
+
+****************************************************
+Process ID: 34
+Memory Used: 4KB
+Number of Cycles: 7208
+
+Entrance time: 2100
+Completion time: 290864
+Wait time: 281556
+****************************************************
+
+****************************************************
+Process ID: 24
+Memory Used: 7KB
+Number of Cycles: 7340
+
+Entrance time: 1500
+Completion time: 292224
+Wait time: 283384
+****************************************************
+
+****************************************************
+Process ID: 19
+Memory Used: 19KB
+Number of Cycles: 7768
+
+Entrance time: 1200
+Completion time: 299502
+Wait time: 290534
+****************************************************
+
+****************************************************
+Process ID: 44
+Memory Used: 18KB
+Number of Cycles: 7737
+
+Entrance time: 2700
+Completion time: 299599
+Wait time: 289162
+****************************************************
+
+****************************************************
+Process ID: 22
+Memory Used: 1KB
+Number of Cycles: 7941
+
+Entrance time: 1400
+Completion time: 301800
+Wait time: 292459
+****************************************************
+
+****************************************************
+Process ID: 29
+Memory Used: 67KB
+Number of Cycles: 8051
+
+Entrance time: 1800
+Completion time: 304021
+Wait time: 294170
+****************************************************
+
+****************************************************
+Process ID: 5
+Memory Used: 5KB
+Number of Cycles: 8234
+
+Entrance time: 400
+Completion time: 304355
+Wait time: 295721
+****************************************************
+
+****************************************************
+Process ID: 7
+Memory Used: 15KB
+Number of Cycles: 9018
+
+Entrance time: 500
+Completion time: 313253
+Wait time: 303735
+****************************************************
+
+****************************************************
+Process ID: 33
+Memory Used: 17KB
+Number of Cycles: 9051
+
+Entrance time: 2050
+Completion time: 314754
+Wait time: 303653
+****************************************************
+
+****************************************************
+Process ID: 13
+Memory Used: 12KB
+Number of Cycles: 9466
+
+Entrance time: 850
+Completion time: 317530
+Wait time: 307214
+****************************************************
+
+****************************************************
+Process ID: 32
+Memory Used: 19KB
+Number of Cycles: 9455
+
+Entrance time: 2000
+Completion time: 317955
+Wait time: 306500
+****************************************************
+
+****************************************************
+Process ID: 14
+Memory Used: 3KB
+Number of Cycles: 9767
+
+Entrance time: 900
+Completion time: 319412
+Wait time: 308745
+****************************************************
+
+****************************************************
+Process ID: 9
+Memory Used: 36KB
+Number of Cycles: 10234
+
+Entrance time: 600
+Completion time: 321426
+Wait time: 310592
+****************************************************
+
+****************************************************
+Process ID: 23
+Memory Used: 30KB
+Number of Cycles: 10226
+
+Entrance time: 1450
+Completion time: 321532
+Wait time: 309856
+****************************************************
+
+****************************************************
+Process ID: 6
+Memory Used: 2KB
+Number of Cycles: 10329
+
+Entrance time: 450
+Completion time: 321536
+Wait time: 310757
+****************************************************
+
+****************************************************
+Process ID: 36
+Memory Used: 11KB
+Number of Cycles: 10655
+
+Entrance time: 2250
+Completion time: 322052
+Wait time: 309147
+****************************************************
+
+****************************************************
+Process ID: 8
+Memory Used: 12KB
+Number of Cycles: 6636
+
+Entrance time: 600
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 43
+Memory Used: 18KB
+Number of Cycles: 2724
+
+Entrance time: 3450
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 48
+Memory Used: 76KB
+Number of Cycles: 4090
+
+Entrance time: 3850
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 24
+Memory Used: 18KB
+Number of Cycles: 1742
+
+Entrance time: 1900
+Completion time: 33697
+Wait time: 30055
+****************************************************
+
+****************************************************
+Process ID: 46
+Memory Used: 13KB
+Number of Cycles: 9172
+
+Entrance time: 3700
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 29
+Memory Used: 19KB
+Number of Cycles: 6091
+
+Entrance time: 2300
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 10
+Memory Used: 62KB
+Number of Cycles: 4397
+
+Entrance time: 750
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 8
+Memory Used: 12KB
+Number of Cycles: 6636
+
+Entrance time: 600
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 23
+Memory Used: 16KB
+Number of Cycles: 10608
+
+Entrance time: 1850
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 34
+Memory Used: 8KB
+Number of Cycles: 7607
+
+Entrance time: 2750
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 34
+Memory Used: 8KB
+Number of Cycles: 7607
+
+Entrance time: 2750
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 1
+Memory Used: 7KB
+Number of Cycles: 6173
+
+Entrance time: 50
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 30
+Memory Used: 5KB
+Number of Cycles: 6018
+
+Entrance time: 2400
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 28
+Memory Used: 12KB
+Number of Cycles: 3885
+
+Entrance time: 2200
+Completion time: 66512
+Wait time: 60427
+****************************************************
+
+****************************************************
+Process ID: 9
+Memory Used: 95KB
+Number of Cycles: 4374
+
+Entrance time: 700
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 48
+Memory Used: 76KB
+Number of Cycles: 4090
+
+Entrance time: 3850
+Completion time: 72779
+Wait time: 64839
+****************************************************
+
+****************************************************
+Process ID: 2
+Memory Used: 2KB
+Number of Cycles: 5023
+
+Entrance time: 100
+Completion time: 76087
+Wait time: 70964
+****************************************************
+
+****************************************************
+Process ID: 42
+Memory Used: 7KB
+Number of Cycles: 7754
+
+Entrance time: 3400
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 9
+Memory Used: 95KB
+Number of Cycles: 4374
+
+Entrance time: 700
+Completion time: 76532
+Wait time: 71458
+****************************************************
+
+****************************************************
+Process ID: 37
+Memory Used: 17KB
+Number of Cycles: 7937
+
+Entrance time: 3000
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 36
+Memory Used: 2KB
+Number of Cycles: 5652
+
+Entrance time: 2950
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 46
+Memory Used: 13KB
+Number of Cycles: 9172
+
+Entrance time: 3700
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 3
+Memory Used: 16KB
+Number of Cycles: 10309
+
+Entrance time: 150
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 35
+Memory Used: 8KB
+Number of Cycles: 7145
+
+Entrance time: 2850
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 0
+Memory Used: 3KB
+Number of Cycles: 8039
+
+Entrance time: 0
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 41
+Memory Used: 11KB
+Number of Cycles: 6237
+
+Entrance time: 3350
+Completion time: 90582
+Wait time: 80995
+****************************************************
+
+****************************************************
+Process ID: 30
+Memory Used: 5KB
+Number of Cycles: 6018
+
+Entrance time: 2400
+Completion time: 90596
+Wait time: 82178
+****************************************************
+
+****************************************************
+Process ID: 34
+Memory Used: 8KB
+Number of Cycles: 7607
+
+Entrance time: 2750
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 16
+Memory Used: 15KB
+Number of Cycles: 7393
+
+Entrance time: 1250
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 0
+Memory Used: 3KB
+Number of Cycles: 8039
+
+Entrance time: 0
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 33
+Memory Used: 81KB
+Number of Cycles: 9295
+
+Entrance time: 2650
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 34
+Memory Used: 8KB
+Number of Cycles: 7607
+
+Entrance time: 2750
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 32
+Memory Used: 9KB
+Number of Cycles: 7483
+
+Entrance time: 2600
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 32
+Memory Used: 9KB
+Number of Cycles: 7483
+
+Entrance time: 2600
+Completion time: 101152
+Wait time: 91069
+****************************************************
+
+****************************************************
+Process ID: 46
+Memory Used: 13KB
+Number of Cycles: 9172
+
+Entrance time: 3700
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 37
+Memory Used: 17KB
+Number of Cycles: 7937
+
+Entrance time: 3000
+Completion time: 104903
+Wait time: 93966
+****************************************************
+
+****************************************************
+Process ID: 23
+Memory Used: 16KB
+Number of Cycles: 10608
+
+Entrance time: 1850
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 5
+Memory Used: 6KB
+Number of Cycles: 8744
+
+Entrance time: 300
+Completion time: 107295
+Wait time: 98251
+****************************************************
+
+****************************************************
+Process ID: 33
+Memory Used: 81KB
+Number of Cycles: 9295
+
+Entrance time: 2650
+Completion time: 108514
+Wait time: 96569
+****************************************************
+
+****************************************************
+Process ID: 26
+Memory Used: 5KB
+Number of Cycles: 9311
+
+Entrance time: 2050
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 13
+Memory Used: 9KB
+Number of Cycles: 10097
+
+Entrance time: 950
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 31
+Memory Used: 13KB
+Number of Cycles: 10706
+
+Entrance time: 2450
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 13
+Memory Used: 9KB
+Number of Cycles: 10097
+
+Entrance time: 950
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 31
+Memory Used: 13KB
+Number of Cycles: 10706
+
+Entrance time: 2450
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 45
+Memory Used: 9KB
+Number of Cycles: 10475
+
+Entrance time: 3650
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 31
+Memory Used: 13KB
+Number of Cycles: 10706
+
+Entrance time: 2450
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 31
+Memory Used: 13KB
+Number of Cycles: 10706
+
+Entrance time: 2450
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 31
+Memory Used: 13KB
+Number of Cycles: 10706
+
+Entrance time: 2450
+Completion time: 112682
+Wait time: 99526
+****************************************************
+
+****************************************************
+Process ID: 45
+Memory Used: 9KB
+Number of Cycles: 10475
+
+Entrance time: 3650
+Completion time: 0
+Wait time: 0
+****************************************************
+
+****************************************************
+Process ID: 45
+Memory Used: 9KB
+Number of Cycles: 10475
+
+Entrance time: 3650
+Completion time: 113018
+Wait time: 98893
+****************************************************
+

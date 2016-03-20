@@ -34,8 +34,6 @@ void Process::create_processes(std::string process_method,int number_of_processo
 }
 
 void Process::round_robin(int number_of_processors){
-	std::cout<<processes_completed<<"-"<<number_of_processes<<"-"<<Process_list.size()<<std::endl;
-//	std::cin.ignore();
 	int number_processors_used=number_of_processors;
 	if(Process_list.size()<4)
 		number_processors_used=Process_list.size();
@@ -47,7 +45,7 @@ void Process::round_robin(int number_of_processors){
 			average_completion_time=(average_completion_time+Process_list[i].completion_time)/processes_completed;
 			Process_list[i].wait_time=Process_list[i].completion_time-Process_list[i].number_of_cycles-Process_list[i].entrance_time;
 			average_wait_time=(average_wait_time+Process_list[i].wait_time)/processes_completed;
-			print_to_file("round_robin_sort.txt");
+			print_to_file("round_robin_sort.txt",number_of_processors);
 			Process_list.erase(Process_list.begin()+i);
 			if(number_of_processors>number_of_processors){
 				context_switch_penalty+=10;
@@ -69,10 +67,12 @@ Param:
 Return:
 	void
 ***************************************************************/
-void Process::print_to_file(std::string sort_name){
+void Process::print_to_file(std::string sort_name,int number_of_processors){
 	std::ofstream myfile;
-	if(processes_completed==0)
+	if(processes_completed==0){
 		myfile.open(sort_name.c_str(),std::fstream::out);
+		myfile<<"Number of processors used: "<<number_of_processors<<std::endl<<std::endl;
+	}
 	else
 		myfile.open(sort_name.c_str(),std::fstream::app|std::fstream::out);
 	myfile<<"****************************************************"<<std::endl;
