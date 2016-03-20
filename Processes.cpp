@@ -14,14 +14,16 @@ Param:
 Return:
 	void
 ***************************************************************/
-void Process::create_processes(int number_to_create,std::string process_method){
-	while(processes_completed!=number_to_create){
-		if((time_passed%TIME_QUANTUM==0)&&(number_of_processes!=number_to_create))
+void Process::create_processes(std::string process_method,int number_of_processors){
+	while(processes_completed!=TOTAL_PROCESSES){
+	//	std::cout<<number_of_processes;
+		if((time_passed%TIME_QUANTUM==0)&&(number_of_processes!=TOTAL_PROCESSES))
 			add_process();
 		if(Process_list.empty())
 			continue;
-		if(strcasecmp(process_method.c_str(),"rr")==0)
-			round_robin();
+		if(strcasecmp(process_method.c_str(),"rr")==0){
+			round_robin(number_of_processors);
+		}
 		else if(strcasecmp(process_method.c_str(),"sjf")==0)
 			;//call SJF function
 		else if(strcasecmp(process_method.c_str(),"fifo")==0)
@@ -31,22 +33,35 @@ void Process::create_processes(int number_to_create,std::string process_method){
 	std::cout<<"Done! Find process results in generated text file \"Procceses_output.txt\"."<<std::endl;
 }
 
-void Process::round_robin(){
-	++Process_list.front().time_spent;
-	if(Process_list.front().time_spent==Process_list.front().number_of_cycles){
-		++processes_completed;
-		Process_list.front().completion_time=time_passed;
-		average_completion_time=(average_completion_time+Process_list.front().completion_time)/processes_completed;
-		Process_list.front().wait_time=Process_list.front().completion_time-Process_list.front().number_of_cycles-Process_list.front().entrance_time;
-		average_wait_time=(average_wait_time+Process_list.front().wait_time)/processes_completed;
-		print_to_file("round_robin_sort.txt");
-		Process_list.erase(Process_list.begin());
+void Process::round_robin(int number_of_processors){
+	std::cout<<processes_completed<<"-"<<number_of_processes<<"-"<<Process_list.size()<<std::endl;
+//	std::cin.ignore();
+	int number_processors_used=number_of_processors;
+	if(Process_list.size()<4)
+		number_processors_used=Process_list.size();
+	for(int i=0;i<number_processors_used;i++){
+		++Process_list[i].time_spent;
+		if(Process_list[i].time_spent==Process_list[i].number_of_cycles){
+			++processes_completed;
+			Process_list[i].completion_time=time_passed;
+			average_completion_time=(average_completion_time+Process_list[i].completion_time)/processes_completed;
+			Process_list[i].wait_time=Process_list[i].completion_time-Process_list[i].number_of_cycles-Process_list[i].entrance_time;
+			average_wait_time=(average_wait_time+Process_list[i].wait_time)/processes_completed;
+			print_to_file("round_robin_sort.txt");
+			Process_list.erase(Process_list.begin()+i);
+			if(number_of_processors>number_of_processors){
+				context_switch_penalty+=10;
+				time_passed+=10;
+			}
+		}
+		else if((Process_list.front().time_spent%TIME_QUANTUM==0)&&(number_of_processes>number_of_processors)){
+			std::rotate(Process_list.begin()+i,Process_list.begin()+number_processors_used,Process_list.end());
+			context_switch_penalty+=10;
+			time_passed+=10;
+		}
 	}
-	else if((Process_list.front().time_spent%TIME_QUANTUM==0)&&(number_of_processes>1)){
-		std::rotate(Process_list.begin(),Process_list.begin()+1,Process_list.end());
-	}
-	time_passed+=10;
 }
+
 /*******************************************************************
 Function: Write processes to specivied file
 Param:
@@ -83,9 +98,10 @@ void Process::print_stats(){
 	std::cout<<"Process Stats"<<std::endl<<std::endl;//prints all process stats based on processes created
 	std::cout<<"Total processes: "<<processes_completed<<std::endl;
 	std::cout<<"Average memory: "<<average_memory<<"KB"<<std::endl;
-	std::cout<<"Average cycles: "<<average_cycles<<std::endl<<std::endl;
-	std::cout<<"Average wait time: "<<average_wait_time<<std::endl;
-	std::cout<<"Average completion time: "<<average_completion_time<<std::endl;
+	std::cout<<"Average cycles: "<<average_cycles<<" cycles"<<std::endl<<std::endl;
+	std::cout<<"Average wait time: "<<average_wait_time<<" cycles"<<std::endl;
+	std::cout<<"Average completion time: "<<average_completion_time<<" cycles"<<std::endl;
+	std::cout<<"Context switch penalty: "<<context_switch_penalty<<" cycles"<<std::endl;
 	std::cout<<"****************************************************"<<std::endl;
 }
 
@@ -129,6 +145,7 @@ Process::Process(){
 	number_of_processes=0;
 	average_wait_time=0;
 	average_completion_time=0;
+	context_switch_penalty=0;
 }
 
 /**********************************************************************

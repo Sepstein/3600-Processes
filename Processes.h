@@ -27,17 +27,18 @@ class Process{
 		long int generate_cycles();//generates the number of cycles based on given range
 		float generate_memory();//generates amount of memory given range
 		void add_process();//adds new process
-		void round_robin();
+		void round_robin(int);
 		int cycles_in_queue;
 		int processes_completed;
 		long int time_passed;
 		int number_of_processes;
 		int average_wait_time;
 		int average_completion_time;
+		int context_switch_penalty;
 	public:
 		Process();
 		~Process(){};
-		void create_processes(int,std::string);//creates a specified number of processes
+		void create_processes(std::string,int);//creates a specified number of processes
 		void print_to_file(std::string);
 		void print_stats();//print statistics regarding to how much memory and cycles the ueued process take
 		void print_processes();//print all processes in queue
