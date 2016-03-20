@@ -37,7 +37,7 @@ class Process{
 	public:
 		Process();
 		~Process(){};
-		void create_processes(int,create_processes);//creates a specified number of processes
+		void create_processes(int,std::string);//creates a specified number of processes
 		void print_to_file(std::string);
 		void print_stats();//print statistics regarding to how much memory and cycles the ueued process take
 		void print_processes();//print all processes in queue

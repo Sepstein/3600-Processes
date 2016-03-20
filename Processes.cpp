@@ -20,7 +20,12 @@ void Process::create_processes(int number_to_create,std::string process_method){
 			add_process();
 		if(Process_list.empty())
 			continue;
-		round_robin();
+		if(strcasecmp(process_method.c_str(),"rr")==0)
+			round_robin();
+		else if(strcasecmp(process_method.c_str(),"sjf")==0)
+			;//call SJF function
+		else if(strcasecmp(process_method.c_str(),"fifo")==0)
+			;//call FIFO function
 		++time_passed;
 	}
 	std::cout<<"Done! Find process results in generated text file \"Procceses_output.txt\"."<<std::endl;

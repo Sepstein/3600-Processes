@@ -14,7 +14,7 @@ int main(int argc,char* argv[]){
 		return 0;
 	}
 	std::string process_method=argv[1];
-	if(strcasecmp(process_method.c_str(),"RR")&&strcasecmp(process_method.c_str(),"SJF")&strcasecmp(process_method.c_str(),"FIFO")){
+	if(strcasecmp(process_method.c_str(),"RR")!=0&&strcasecmp(process_method.c_str(),"SJF")!=0&&strcasecmp(process_method.c_str(),"FIFO")!=0){
 		std::cout<<"Error: Invalid processing method entered."<<std::endl;
 		display_options();
 		return 0;
