@@ -14,74 +14,112 @@ Param:
 Return:
 	void
 ***************************************************************/
-void Process::create_processes(std::string process_method,int number_of_processors){
-	while(processes_completed!=TOTAL_PROCESSES){
-	//	std::cout<<number_of_processes;
-		if((time_passed%TIME_QUANTUM==0)&&(number_of_processes!=TOTAL_PROCESSES))
-			add_process();
-		if(Process_list.empty())//shouldn't be an issue, but just to make sure won't run without any processes
-			continue;
-		if(strcasecmp(process_method.c_str(),"rr")==0){
-			round_robin(number_of_processors);
-		}
-		else if(strcasecmp(process_method.c_str(),"sjf")==0)
-			;//call SJF function
-		else if(strcasecmp(process_method.c_str(),"fifo")==0)
-			;//call FIFO function
-		++time_passed;//increments time to simulate a cycle
-	}
-	std::cout<<"Done! Find process results in generated text file."<<std::endl;
+
+void Process::overall_stats(){
+	std::cout<<"Overall Process Stats"<<std::endl;//prints all process stats based on processes created
+	std::cout<<"-Total processes: "<<TOTAL_PROCESSES<<std::endl;
+	std::cout<<"-Average memory: "<<average_memory<<"KB"<<std::endl;
+	std::cout<<"-Average cycles: "<<average_cycles<<" cycles"<<std::endl;
+	std::cout<<std::endl;
 }
 
-void Process::round_robin(int number_of_processors){
-	int number_processors_used=number_of_processors;//sets number of processors that will be used
-	if(Process_list.size()<number_of_processors)//if there are less processes than number of processors, will only use limited processors
-		number_processors_used=Process_list.size();
-	for(int i=0;i<number_processors_used;i++){//cycles through the simulation of what is going on in each process
-		++Process_list[i].time_spent;//each of these passings counts as a cycle
-		if(Process_list[i].time_spent==Process_list[i].number_of_cycles){//if the process is done, delete it
-			++processes_completed;
-			Process_list[i].completion_time=time_passed;
-			average_completion_time=(average_completion_time+Process_list[i].completion_time)/processes_completed;
-			Process_list[i].wait_time=Process_list[i].completion_time-Process_list[i].number_of_cycles-Process_list[i].entrance_time;
-			average_wait_time=(average_wait_time+Process_list[i].wait_time)/processes_completed;
-			print_to_file("round_robin_sort.txt",number_of_processors);
-			Process_list.erase(Process_list.begin()+i);
-			if(number_of_processors>number_of_processors){
-				context_switch_penalty+=10;
-				time_passed+=10;
+void Process::ready_process(){
+	Process_list[number_processes_ready].ready=true;
+	++number_processes_ready;
+	++number_processes_arrived;
+}
+
+void Process::round_robin(int number_of_processors,std::string file_name){
+	while(processes_completed!=TOTAL_PROCESSES){
+		if(TOTAL_PROCESSES!=number_processes_arrived){
+			if(Process_list[number_processes_arrived].entrance_time<=time_passed){
+				ready_process();
 			}
 		}
-		else if((Process_list.front().time_spent%TIME_QUANTUM==0)&&(number_of_processes>number_of_processors)){//if time quantum is spent, will rotate to new process
-			std::rotate(Process_list.begin()+i,Process_list.begin()+number_processors_used,Process_list.end());
-			context_switch_penalty+=10;
-			time_passed+=10;
+		int number_processors_used=number_of_processors_to_use(number_of_processors);//sets number of processors that will be used
+		for(int i=0;i<number_processors_used;i++){//cycles through the simulation of what is going on in each process
+			++Process_list[i].time_spent;//each of these passings counts as a cycle
+			if(Process_list[i].time_spent==Process_list[i].number_of_cycles){//if the process is done, delete it
+				remove_process(number_of_processors,i,file_name,number_processors_used);
+			}
+			else if((Process_list[i].time_spent%TIME_QUANTUM==0)&&(number_processes_ready>number_of_processors)){//if time quantum is spent, will rotate to new process
+				rotate_processes(number_processors_used,i);
+			}
 		}
+		++time_passed;
 	}
+}
+
+void Process::first_in_first_out(int number_of_processors,std::string file_name){
+	while(processes_completed!=TOTAL_PROCESSES){
+		if(TOTAL_PROCESSES!=number_processes_arrived){
+			if(Process_list[number_processes_arrived].entrance_time<=time_passed){
+					ready_process();
+			}
+		}
+		int number_processors_used=number_of_processors_to_use(number_of_processors);//sets number of processors that will be used
+		for(int i=0;i<number_processors_used;i++){//cycles through the simulation of what is going on in each process
+			++Process_list[i].time_spent;//each of these passings counts as a cycle
+			if(Process_list[i].time_spent==Process_list[i].number_of_cycles){//if the process is done, delete it
+				remove_process(number_of_processors,i,file_name,number_processors_used);
+			}
+		}
+		++time_passed;
+	}
+}
+
+void Process::remove_process(int number_of_processors,int i,std::string file_name,int number_processors_used){
+	++processes_completed;
+	Process_list[i].completion_time=time_passed;
+	average_completion_time=(average_completion_time+Process_list[i].completion_time)/processes_completed;
+	Process_list[i].wait_time=Process_list[i].completion_time-Process_list[i].number_of_cycles-Process_list[i].entrance_time;
+	average_wait_time=(average_wait_time+Process_list[i].wait_time)/processes_completed;
+	print_to_file(file_name,number_of_processors,i);
+	Process_list.erase(Process_list.begin()+i);
+	if(number_of_processes>number_processors_used){
+		context_switch_penalty+=10;
+		time_passed+=10;
+	}
+	--number_processes_ready;
+}
+
+void Process::rotate_processes(int number_processors_used,int i){
+	if(Process_list[i].ready==true){
+		std::rotate(Process_list.begin()+i,Process_list.begin()+number_processors_used+1,Process_list.begin()+number_processes_ready);
+		context_switch_penalty+=10;
+		time_passed+=10;
+	}
+}
+
+int Process::number_of_processors_to_use(int number_of_processors){
+	if(number_processes_ready<number_of_processors)
+		return number_processes_ready;
+	else
+		return number_of_processors;
 }
 
 /*******************************************************************
-Function: Write processes to specivied file
+Function: Write processes to specified file
 Param:
 	none
 Return:
 	void
 ***************************************************************/
-void Process::print_to_file(std::string sort_name,int number_of_processors){
+void Process::print_to_file(std::string file_name,int number_of_processors,int i){
 	std::ofstream myfile;
 	if(processes_completed==0){
-		myfile.open(sort_name.c_str(),std::fstream::out);
+		myfile.open(file_name.c_str(),std::fstream::out);
 		myfile<<"Number of processors used: "<<number_of_processors<<std::endl<<std::endl;
 	}
 	else
-		myfile.open(sort_name.c_str(),std::fstream::app|std::fstream::out);
+		myfile.open(file_name.c_str(),std::fstream::app|std::fstream::out);
 	myfile<<"****************************************************"<<std::endl;
-	myfile<<"Process ID: "<<Process_list.front().process_ID<<std::endl;
-	myfile<<"Memory Used: "<<Process_list.front().memory_footprint<<"KB"<<std::endl;
-	myfile<<"Number of Cycles: "<<Process_list.front().number_of_cycles<<std::endl<<std::endl;
-	myfile<<"Entrance time: "<<Process_list.front().entrance_time<<std::endl;
-	myfile<<"Completion time: "<<Process_list.front().completion_time<<std::endl;
-	myfile<<"Wait time: "<<Process_list.front().wait_time<<std::endl;
+	myfile<<"Process ID: "<<Process_list[i].process_ID<<std::endl;
+	myfile<<"Memory Used: "<<Process_list[i].memory_footprint<<"KB"<<std::endl;
+	myfile<<"Number of Cycles: "<<Process_list[i].number_of_cycles<<std::endl<<std::endl;
+	myfile<<"Entrance time: "<<Process_list[i].entrance_time<<std::endl;
+	myfile<<"Completion time: "<<Process_list[i].completion_time<<std::endl;
+	myfile<<"Wait time: "<<Process_list[i].wait_time<<std::endl;
 	myfile<<"****************************************************"<<std::endl<<std::endl;
 	myfile.close();
 }
@@ -93,16 +131,12 @@ Param:
 Return:
 	void
 ***************************************************************/
-void Process::print_stats(){
-	std::cout<<"****************************************************"<<std::endl;
-	std::cout<<"Process Stats"<<std::endl<<std::endl;//prints all process stats based on processes created
-	std::cout<<"Total processes: "<<processes_completed<<std::endl;
-	std::cout<<"Average memory: "<<average_memory<<"KB"<<std::endl;
-	std::cout<<"Average cycles: "<<average_cycles<<" cycles"<<std::endl<<std::endl;
-	std::cout<<"Average wait time: "<<average_wait_time<<" cycles"<<std::endl;
-	std::cout<<"Average completion time: "<<average_completion_time<<" cycles"<<std::endl;
-	std::cout<<"Context switch penalty: "<<context_switch_penalty<<" cycles"<<std::endl;
-	std::cout<<"****************************************************"<<std::endl;
+void Process::print_stats(int number_of_processors,std::string process_method_used){
+	std::cout<<number_of_processors<<" processor(s):"<<std::endl;
+	std::cout<<"-Average wait time: "<<average_wait_time<<" cycles"<<std::endl;
+	std::cout<<"-Average completion time: "<<average_completion_time<<" cycles"<<std::endl;
+	std::cout<<"-Context switch penalty: "<<context_switch_penalty<<" cycles"<<std::endl;
+	std::cout<<std::endl;
 }
 
 /*******************************************************************
@@ -116,11 +150,11 @@ void Process::print_processes(){
 	std::cout<<"****************************************************"<<std::endl;
 	std::cout<<"List of Processes"<<std::endl<<std::endl;
 	std::cout<<"--------------------------------------------------"<<std::endl;
-	for(int i=0;i<Process_list.size();i++){
+	for(unsigned int i=0;i<Process_list.size();i++){
 		std::cout<<"Process Number: "<<i+1<<std::endl<<std::endl;//Prints each Process in the order they are stored in the queue.
-		std::cout<<"Process ID: "<<Process_list[i].process_ID<<std::endl;
-		std::cout<<"Memory Used: "<<Process_list[i].memory_footprint<<"KB"<<std::endl;
-		std::cout<<"Number of Cycles: "<<Process_list[i].number_of_cycles<<std::endl;
+		std::cout<<"Process ID: "<<Process::Process_list[i].process_ID<<std::endl;
+		std::cout<<"Memory Used: "<<Process::Process_list[i].memory_footprint<<"KB"<<std::endl;
+		std::cout<<"Number of Cycles: "<<Process::Process_list[i].number_of_cycles<<std::endl;
 		if(i+1!=Process_list.size())
 			std::cout<<"--------------------------------------------------"<<std::endl;
 	}
@@ -134,18 +168,20 @@ Param:
 Return:
 	void
 ***************************************************************/
+
 Process::Process(){
+	processes_completed=0;
+	time_passed=0;
+	average_wait_time=0;
+	average_completion_time=0;
+	context_switch_penalty=0;
 	total_memory=0;
 	total_cycles=0;
 	average_cycles=0;
 	average_memory=0;
-	cycles_in_queue=0;
-	processes_completed=0;
-	time_passed=0;
 	number_of_processes=0;
-	average_wait_time=0;
-	average_completion_time=0;
-	context_switch_penalty=0;
+	number_processes_ready=0;
+	number_processes_arrived=0;
 }
 
 /**********************************************************************
@@ -157,14 +193,15 @@ Param:
 Return:
 	voidadd_
 ***************************************************************************/
-Process::Process_values::Process_values(int id, long int cycles, float memory,int time){
+Process::Process_values::Process_values(int id, long int cycles, float memory,int entry_time){
 	process_ID=id;//values passed in are assigned to process
 	number_of_cycles=cycles;
 	memory_footprint=memory;
 	time_spent=0;
 	completion_time=0;
-	entrance_time=time;
+	entrance_time=entry_time;
 	wait_time=0;
+	ready=false;
 }
 
 /*******************************************************************
@@ -174,10 +211,10 @@ Param:
 Return:
 	void
 ***************************************************************/
-void Process::add_process(){
+void Process::add_process(int entrance_time){
 	int new_cycles=generate_cycles();//generates cycles and memory to go along with the new process
 	int new_memory=generate_memory();
-	Process_values new_process(number_of_processes,new_cycles,new_memory,(int)time_passed);//first process always starts with 1 and incremented from there
+	Process_values new_process(number_of_processes,new_cycles,new_memory,entrance_time);//first process always starts with 1 and incremented from there
 	Process_list.push_back(new_process);
 	++number_of_processes;//increments number of process
 	total_memory+=new_memory;
