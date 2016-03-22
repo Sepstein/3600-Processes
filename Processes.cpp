@@ -39,12 +39,10 @@ void Process::round_robin(int number_of_processors,std::string file_name){
 		int number_processors_used=number_of_processors_to_use(number_of_processors);//sets number of processors that will be used
 		for(int i=0;i<number_processors_used;i++){//cycles through the simulation of what is going on in each process
 			++Process_list[i].time_spent;//each of these passings counts as a cycle
-			if(Process_list[i].time_spent==Process_list[i].number_of_cycles){//if the process is done, delete it
-				remove_process(number_of_processors,i,file_name,number_processors_used);
-			}
-			else if((Process_list[i].time_spent%TIME_QUANTUM==0)&&(number_processes_ready>number_of_processors)){//if time quantum is spent, will rotate to new process
+			if(Process_list[i].time_spent==Process_list[i].number_of_cycles)//if the process is done, delete it
+				remove_process(number_of_processors,i,file_name);
+			else if((Process_list[i].time_spent%TIME_QUANTUM==0)&&(number_processes_ready>number_of_processors))//if time quantum is spent, will rotate to new process
 				rotate_processes(number_processors_used,i);
-			}
 		}
 		++time_passed;
 	}
@@ -61,14 +59,14 @@ void Process::first_in_first_out(int number_of_processors,std::string file_name)
 		for(int i=0;i<number_processors_used;i++){//cycles through the simulation of what is going on in each process
 			++Process_list[i].time_spent;//each of these passings counts as a cycle
 			if(Process_list[i].time_spent==Process_list[i].number_of_cycles){//if the process is done, delete it
-				remove_process(number_of_processors,i,file_name,number_processors_used);
+				remove_process(number_of_processors,i,file_name);
 			}
 		}
 		++time_passed;
 	}
 }
 
-void Process::remove_process(int number_of_processors,int i,std::string file_name,int number_processors_used){
+void Process::remove_process(int number_of_processors,int i,std::string file_name){
 	++processes_completed;
 	Process_list[i].completion_time=time_passed;
 	average_completion_time=(average_completion_time+Process_list[i].completion_time)/processes_completed;
@@ -76,7 +74,7 @@ void Process::remove_process(int number_of_processors,int i,std::string file_nam
 	average_wait_time=(average_wait_time+Process_list[i].wait_time)/processes_completed;
 	print_to_file(file_name,number_of_processors,i);
 	Process_list.erase(Process_list.begin()+i);
-	if(number_of_processes>number_processors_used){
+	if(number_processes_ready>number_of_processors){
 		context_switch_penalty+=10;
 		time_passed+=10;
 	}

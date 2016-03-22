@@ -39,7 +39,7 @@ class Process{
 		void print_to_file(std::string,int,int);
 		void print_processes();//print all processes in queue
 		void rotate_processes(int,int);
-		void remove_process(int,int,std::string,int);
+		void remove_process(int,int,std::string);
 		void ready_process();
 	public:
 		Process();
@@ -52,3 +52,4 @@ class Process{
 
 void display_options();
 void display_stats();
+void print_finish_message(std::string,int);
