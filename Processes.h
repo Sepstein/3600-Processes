@@ -28,6 +28,7 @@ class Process{
 		float generate_memory();//generates amount of memory given range
 		void add_process();//adds new process
 		void round_robin(int);
+		void fifo(int);
 		int cycles_in_queue;
 		int processes_completed;
 		long int time_passed;

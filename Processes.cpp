@@ -26,8 +26,9 @@ void Process::create_processes(std::string process_method,int number_of_processo
 		}
 		else if(strcasecmp(process_method.c_str(),"sjf")==0)
 			;//call SJF function
-		else if(strcasecmp(process_method.c_str(),"fifo")==0)
-			;//call FIFO function
+		else if(strcasecmp(process_method.c_str(),"fifo")==0){
+			fifo(number_of_processors);//call FIFO function
+			}
 		++time_passed;//increments time to simulate a cycle
 	}
 	std::cout<<"Done! Find process results in generated text file."<<std::endl;
@@ -59,6 +60,45 @@ void Process::round_robin(int number_of_processors){
 		}
 	}
 }
+
+void Process::fifo(int number_of_processors){
+
+	int number_processors_used=number_of_processors;//sets number of processors that will be used
+
+	if(Process_list.size()<number_of_processors)//if there are less processes than number of processors, will only use limited processors
+		number_processors_used=Process_list.size();
+
+	for(int i=0;i<number_processors_used;i++){//cycles through the simulation of what is going on in each process
+		++Process_list[i].time_spent;//each of these passings counts as a cycle
+
+		if(Process_list[i].time_spent==Process_list[i].number_of_cycles){//if the process is done, delete it
+			++processes_completed;
+
+			Process_list[i].completion_time=time_passed;
+			
+			average_completion_time=(average_completion_time+Process_list[i].completion_time)/processes_completed;
+
+			Process_list[i].wait_time=Process_list[i].completion_time-Process_list[i].number_of_cycles-Process_list[i].entrance_time;
+
+			average_wait_time=(average_wait_time+Process_list[i].wait_time)/processes_completed;
+
+			print_to_file("fifo.txt",number_of_processors);
+
+			Process_list.erase(Process_list.begin()+i);
+
+			//if(number_of_processors>number_of_processors){
+				context_switch_penalty+=10;
+				time_passed+=10;
+			//}
+		}
+		/*else if((Process_list.front().time_spent%TIME_QUANTUM==0)&&(number_of_processes>number_of_processors)){//if time quantum is spent, will rotate to new process
+			std::rotate(Process_list.begin()+i,Process_list.begin()+number_processors_used,Process_list.end());
+			context_switch_penalty+=10;
+			time_passed+=10;
+		}*/
+	}
+}
+
 
 /*******************************************************************
 Function: Write processes to specivied file
