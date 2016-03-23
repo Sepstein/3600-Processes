@@ -33,6 +33,8 @@ int main(int argc,char* argv[]){
 	Process RR_quad_processor=RR_single_processor;
 	Process FIFO_single_processor=RR_single_processor;
 	Process FIFO_quad_processor=RR_single_processor;
+	Process SJF_single_processor=RR_single_processor;
+	Process SJF_quad_processor=RR_single_processor;
 	std::string process_method_used;
 	int number_processors;	
 	RR_single_processor.overall_stats();
@@ -67,11 +69,21 @@ int main(int argc,char* argv[]){
 		}
 	}
 
-//	if(strcasecmp(process_method.c_str(),"sjf")==0){
-//		single_processor_processes.first_in_first_out(1,"first_in_first_out");
-//		quad_processor_processes.first_in_first_out(4,"first_in_first_out");
-//		process_method_used="Shortest Job First";
-//	}
+	if(strcasecmp(process_choice.c_str(),"all")==0||strcasecmp(process_choice.c_str(),"SJF")==0){
+		process_method_used="Shortest Job First";
+		if(strcasecmp(which_processors.c_str(),"single")==0||strcasecmp(which_processors.c_str(),"both")==0){
+			number_processors=1;
+			SJF_single_processor.shortest_job_first(number_processors,"shortest_job_first");
+			print_finish_message(process_method_used,number_processors);
+			SJF_single_processor.print_stats(number_processors,process_method_used);
+		}
+		if(strcasecmp(which_processors.c_str(),"quad")==0||strcasecmp(which_processors.c_str(),"both")==0){
+			number_processors=4;
+			SJF_quad_processor.shortest_job_first(number_processors,"shortest_job_first");
+			print_finish_message(process_method_used,number_processors);
+			SJF_quad_processor.print_stats(number_processors,process_method_used);
+		}
+	}
 	return 0;
 }
 
