@@ -1,8 +1,8 @@
 /**********************************************
-Name: Jamie Simpson
+Name: Jamie Simpson, Sam Epstein, Juan Apolinar
 Class: CSCE 4600-001
-Program: Process Simulator Pt.1 
-File: Contains the functions for creating new processes
+Program: Project 1, comparing different scheduling algorithms. FIFO, SJF, and ROUND ROBIN
+File: Contains the functions for creating new processes and comparing them with different algorithms
 ***********************************************/
 
 #include "Processes.h"
@@ -28,7 +28,7 @@ void Process::ready_process(){
 	++number_processes_ready;
 	++number_processes_arrived;
 }
-
+//implements the round robin algorithm for these processes
 void Process::round_robin(int number_of_processors,std::string file_name){
 	std::ofstream myfile;
 	std::string log_file=file_name+".log";
@@ -50,7 +50,7 @@ void Process::round_robin(int number_of_processors,std::string file_name){
 			if(Process_list[i].time_spent==Process_list[i].number_of_cycles){//if the process is done, delete it
 				myfile<<time_passed+context_switch_penalty<<": Process "<<Process_list[i].process_ID<<" fully executed."<<std::endl;
 				remove_process(number_of_processors,i,file_name,number_processors_used);
-			}
+			} //implements the switching once the time quantum has been used 
 			else if((Process_list[i].time_spent%TIME_QUANTUM==0)&&(number_processes_ready>number_of_processors+i)){//if time quantum is spent, will rotate to new process
 				myfile<<time_passed+context_switch_penalty<<": Process "<<Process_list[i].process_ID<<" time quantum expired."<<std::endl;
 				rotate_processes(number_processors_used,i,multiple_switch_check);
@@ -64,6 +64,8 @@ void Process::round_robin(int number_of_processors,std::string file_name){
 	myfile.close();
 }
 
+//implements the shortest job first algorithm for processes
+//this algorithm is assumed to be preemptive
 void Process::shortest_job_first(int number_of_processors,std::string file_name){
 	std::ofstream myfile;
 	std::string log_file=file_name+".log";
@@ -96,6 +98,7 @@ void Process::shortest_job_first(int number_of_processors,std::string file_name)
 	myfile.close();
 }
 
+//implements the first in first out algorithm for scheduling processes
 void Process::first_in_first_out(int number_of_processors,std::string file_name){
 	std::ofstream myfile;
 	std::string log_file=file_name+".log";
