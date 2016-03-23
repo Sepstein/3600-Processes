@@ -63,6 +63,33 @@ void Process::round_robin(int number_of_processors,std::string file_name){
 	time_passed+=context_switch_penalty;
 	myfile.close();
 }
+void Process::shortest_job_first(int number_of_processors,std::string file_name){
+	while(processes_completed!=TOTAL_PROCESSES){
+		if(TOTAL_PROCESSES!=number_processes_arrived){
+			if(Process_list[number_processes_arrived].entrance_time<=time_passed)
+				ready_process();
+		}
+		for(int j=0;j<number_processes_arrived;j++){
+			for(int k=0;k<j;k++)
+			{
+				if(Process_list[k].number_of_cycles<Process_list[k+1].number_of_cycles)
+				{
+					Process_values temp = Process_list[k];
+					Process_list[k] = Process_list[k+1];
+					Process_list[k+1] = temp;
+				}
+			}
+		}
+		int number_processors_used=number_of_processors_to_use(number_of_processors);
+		for(int i=0;i<number_processors_used;i++){
+			++Process_list[i].time_spent;
+			if(Process_list[i].time_spent==Process_list[i].number_of_cycles)
+				remove_process(number_of_processors,i,file_name);
+
+		}
+		++time_passed;
+	}
+}
 
 void Process::first_in_first_out(int number_of_processors,std::string file_name){
 	std::ofstream myfile;

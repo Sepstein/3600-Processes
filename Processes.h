@@ -46,6 +46,7 @@ class Process{
 		void print_stats(int,std::string);//print statistics regarding to how much memory and cycles the ueued process take
 		void add_process(int);//adds new process
 		void round_robin(int,std::string);
+		void shortest_job_first(int,std::string);
 		void first_in_first_out(int,std::string);
 		void overall_stats();
 };
