@@ -30,40 +30,63 @@ void Process::ready_process(){
 }
 
 void Process::round_robin(int number_of_processors,std::string file_name){
+	std::ofstream myfile;
+	std::string log_file=file_name+".log";
+	myfile.open(log_file.c_str(),std::fstream::out);
+	bool multiple_switch_check=false;
 	while(processes_completed!=TOTAL_PROCESSES){
 		if(TOTAL_PROCESSES!=number_processes_arrived){
 			if(Process_list[number_processes_arrived].entrance_time<=time_passed){
+				myfile<<time_passed<<": Process "<<Process_list[number_processes_arrived].process_ID<<" arrived."<<std::endl;
+				ready_process();
+				if(number_processes_arrived<=number_of_processors)
+					myfile<<time_passed+context_switch_penalty<<": Process "<<Process_list[number_processes_arrived-1].process_ID<<" executing."<<std::endl;
+			}
+		}
+		int number_processors_used=number_of_processors_to_use(number_of_processors);//sets number of processors that will be used
+		for(int i=0;i<number_processors_used;i++){//cycles through the simulation of what is going on in each process
+				if(Process_list[i].time_spent==Process_list[i].number_of_cycles){//if the process is done, delete it
+				myfile<<time_passed+context_switch_penalty<<": Process "<<Process_list[i].process_ID<<" fully executed."<<std::endl;
+				remove_process(number_of_processors,i,file_name);
+			}
+			else if((Process_list[i].time_spent%TIME_QUANTUM==0)&&(number_processes_ready>number_of_processors+i)){//if time quantum is spent, will rotate to new process
+				myfile<<time_passed+context_switch_penalty<<": Process "<<Process_list[i].process_ID<<" time quantum expired."<<std::endl;
+				rotate_processes(number_processors_used,i,multiple_switch_check);
+				multiple_switch_check=true;
+				myfile<<time_passed+context_switch_penalty<<": Rotating in process "<<Process_list[i].process_ID<<"."<<std::endl;
+			}
+			++Process_list[i].time_spent;//each of these passings counts as a cycle
+		}
+		++time_passed;
+		multiple_switch_check=false;
+	}
+	time_passed+=context_switch_penalty;
+	myfile.close();
+}
+
+void Process::first_in_first_out(int number_of_processors,std::string file_name){
+	std::ofstream myfile;
+	std::string log_file=file_name+".log";
+	myfile.open(log_file.c_str(),std::fstream::out);
+	while(processes_completed!=TOTAL_PROCESSES){
+		if(TOTAL_PROCESSES!=number_processes_arrived){
+			if(Process_list[number_processes_arrived].entrance_time<=time_passed){
+				myfile<<time_passed<<": Process "<<Process_list[number_processes_arrived].process_ID<<" arrived."<<std::endl;
 				ready_process();
 			}
 		}
 		int number_processors_used=number_of_processors_to_use(number_of_processors);//sets number of processors that will be used
 		for(int i=0;i<number_processors_used;i++){//cycles through the simulation of what is going on in each process
 			++Process_list[i].time_spent;//each of these passings counts as a cycle
-			if(Process_list[i].time_spent==Process_list[i].number_of_cycles)//if the process is done, delete it
-				remove_process(number_of_processors,i,file_name);
-			else if((Process_list[i].time_spent%TIME_QUANTUM==0)&&(number_processes_ready>number_of_processors))//if time quantum is spent, will rotate to new process
-				rotate_processes(number_processors_used,i);
-		}
-		++time_passed;
-	}
-}
-
-void Process::first_in_first_out(int number_of_processors,std::string file_name){
-	while(processes_completed!=TOTAL_PROCESSES){
-		if(TOTAL_PROCESSES!=number_processes_arrived){
-			if(Process_list[number_processes_arrived].entrance_time<=time_passed){
-					ready_process();
-			}
-		}
-		int number_processors_used=number_of_processors_to_use(number_of_processors);//sets number of processors that will be used
-		for(int i=0;i<number_processors_used;i++){//cycles through the simulation of what is going on in each process
-			++Process_list[i].time_spent;//each of these passings counts as a cycle
 			if(Process_list[i].time_spent==Process_list[i].number_of_cycles){//if the process is done, delete it
+				myfile<<time_passed<<": Process "<<Process_list[i].process_ID<<" fully executed."<<std::endl;
 				remove_process(number_of_processors,i,file_name);
 			}
 		}
 		++time_passed;
 	}
+	time_passed=context_switch_penalty;
+	myfile.close();
 }
 
 void Process::remove_process(int number_of_processors,int i,std::string file_name){
@@ -74,19 +97,18 @@ void Process::remove_process(int number_of_processors,int i,std::string file_nam
 	average_wait_time=(average_wait_time+Process_list[i].wait_time)/processes_completed;
 	print_to_file(file_name,number_of_processors,i);
 	Process_list.erase(Process_list.begin()+i);
-	if(number_processes_ready>number_of_processors){
+	if(number_processes_ready>number_of_processors)
 		context_switch_penalty+=10;
-		time_passed+=10;
-	}
 	--number_processes_ready;
 }
 
-void Process::rotate_processes(int number_processors_used,int i){
-	if(Process_list[i].ready==true){
-		std::rotate(Process_list.begin()+i,Process_list.begin()+number_processors_used+1,Process_list.begin()+number_processes_ready);
+void Process::rotate_processes(int number_processors_used,int i,bool multiple_switch_check){
+	if(multiple_switch_check==false)
 		context_switch_penalty+=10;
-		time_passed+=10;
-	}
+	Process_values temp=Process_list[i];
+	Process_list[i]=Process_list[number_processors_used];
+	std::rotate(Process_list.begin()+number_processors_used,Process_list.begin()+number_processors_used+1,Process_list.begin()+number_processes_ready);
+	Process_list[number_processes_ready-1]=temp;
 }
 
 int Process::number_of_processors_to_use(int number_of_processors){
@@ -105,6 +127,7 @@ Return:
 ***************************************************************/
 void Process::print_to_file(std::string file_name,int number_of_processors,int i){
 	std::ofstream myfile;
+	file_name+=".txt";
 	if(processes_completed==0){
 		myfile.open(file_name.c_str(),std::fstream::out);
 		myfile<<"Number of processors used: "<<number_of_processors<<std::endl<<std::endl;

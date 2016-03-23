@@ -38,7 +38,7 @@ class Process{
 		float generate_memory();//generates amount of memory given range
 		void print_to_file(std::string,int,int);
 		void print_processes();//print all processes in queue
-		void rotate_processes(int,int);
+		void rotate_processes(int,int,bool);
 		void remove_process(int,int,std::string);
 		void ready_process();
 	public:

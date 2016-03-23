@@ -40,13 +40,13 @@ int main(int argc,char* argv[]){
 		process_method_used="Round Robin";
 		if(strcasecmp(which_processors.c_str(),"single")==0||strcasecmp(which_processors.c_str(),"both")==0){
 			number_processors=1;
-			RR_single_processor.round_robin(number_processors,"round_robin_single.txt");
+			RR_single_processor.round_robin(number_processors,"round_robin_single");
 			print_finish_message(process_method_used,number_processors);
 			RR_single_processor.print_stats(number_processors,process_method_used);
 		}
 		if(strcasecmp(which_processors.c_str(),"quad")==0||strcasecmp(which_processors.c_str(),"both")==0){
 			number_processors=4;
-			RR_quad_processor.round_robin(number_processors,"round_robin_quad.txt");
+			RR_quad_processor.round_robin(number_processors,"round_robin_quad");
 			print_finish_message(process_method_used,number_processors);
 			RR_quad_processor.print_stats(number_processors,process_method_used);
 		}
@@ -55,21 +55,21 @@ int main(int argc,char* argv[]){
 		process_method_used="First In First Out";
 		if(strcasecmp(which_processors.c_str(),"single")==0||strcasecmp(which_processors.c_str(),"both")==0){
 			number_processors=1;
-			FIFO_single_processor.first_in_first_out(number_processors,"first_in_first_out.txt");
+			FIFO_single_processor.first_in_first_out(number_processors,"first_in_first_out");
 			print_finish_message(process_method_used,number_processors);
 			FIFO_single_processor.print_stats(number_processors,process_method_used);
 		}
 		if(strcasecmp(which_processors.c_str(),"quad")==0||strcasecmp(which_processors.c_str(),"both")==0){
 			number_processors=4;
-			FIFO_quad_processor.first_in_first_out(number_processors,"first_in_first_out.txt");
+			FIFO_quad_processor.first_in_first_out(number_processors,"first_in_first_out");
 			print_finish_message(process_method_used,number_processors);
 			FIFO_quad_processor.print_stats(number_processors,process_method_used);
 		}
 	}
 
 //	if(strcasecmp(process_method.c_str(),"sjf")==0){
-//		single_processor_processes.first_in_first_out(1,"first_in_first_out.txt");
-//		quad_processor_processes.first_in_first_out(4,"first_in_first_out.txt");
+//		single_processor_processes.first_in_first_out(1,"first_in_first_out");
+//		quad_processor_processes.first_in_first_out(4,"first_in_first_out");
 //		process_method_used="Shortest Job First";
 //	}
 	return 0;
