@@ -30,9 +30,10 @@ class Process{
 		int number_of_processes;
 		int average_wait_time;
 		int average_completion_time;
-		int context_switch_penalty;
+		int* context_switch_penalty;
 		int number_processes_ready;
 		int number_processes_arrived;
+		int total_context_switch_penaly;
 		int number_of_processors_to_use(int);
 		long int generate_cycles();//generates the number of cycles based on given range
 		float generate_memory();//generates amount of memory given range

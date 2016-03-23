@@ -1,0 +1,150 @@
+0: Process 0 arrived.
+50: Process 1 arrived.
+100: Process 2 arrived.
+150: Process 3 arrived.
+200: Process 4 arrived.
+250: Process 5 arrived.
+300: Process 6 arrived.
+350: Process 7 arrived.
+400: Process 8 arrived.
+450: Process 9 arrived.
+500: Process 10 arrived.
+550: Process 11 arrived.
+600: Process 12 arrived.
+650: Process 13 arrived.
+700: Process 14 arrived.
+750: Process 15 arrived.
+800: Process 16 arrived.
+850: Process 17 arrived.
+900: Process 18 arrived.
+950: Process 19 arrived.
+1000: Process 20 arrived.
+1050: Process 21 arrived.
+1100: Process 22 arrived.
+1150: Process 23 arrived.
+1200: Process 24 arrived.
+1250: Process 25 arrived.
+1300: Process 26 arrived.
+1350: Process 27 arrived.
+1400: Process 28 arrived.
+1450: Process 29 arrived.
+1500: Process 30 arrived.
+1550: Process 31 arrived.
+1600: Process 32 arrived.
+1650: Process 33 arrived.
+1700: Process 34 arrived.
+1750: Process 35 arrived.
+1800: Process 36 arrived.
+1850: Process 37 arrived.
+1900: Process 38 arrived.
+1950: Process 39 arrived.
+2000: Process 40 arrived.
+2050: Process 41 arrived.
+2100: Process 42 arrived.
+2150: Process 43 arrived.
+2200: Process 44 arrived.
+2250: Process 45 arrived.
+2300: Process 46 arrived.
+2350: Process 47 arrived.
+2400: Process 48 arrived.
+2450: Process 49 arrived.
+4995: Process 0 fully executed.
+5005: Process 11 entered processor.
+6235: Process 11 fully executed.
+6245: Process 23 entered processor.
+7830: Process 23 fully executed.
+7840: Process 7 entered processor.
+9776: Process 7 fully executed.
+9786: Process 4 entered processor.
+11726: Process 4 fully executed.
+11736: Process 26 entered processor.
+13871: Process 26 fully executed.
+13881: Process 20 entered processor.
+16159: Process 20 fully executed.
+16169: Process 16 entered processor.
+19041: Process 16 fully executed.
+19051: Process 29 entered processor.
+20744: Process 29 fully executed.
+20754: Process 8 entered processor.
+23730: Process 8 fully executed.
+23740: Process 10 entered processor.
+26942: Process 10 fully executed.
+26952: Process 22 entered processor.
+30826: Process 22 fully executed.
+30836: Process 5 entered processor.
+34720: Process 5 fully executed.
+34730: Process 27 entered processor.
+38919: Process 27 fully executed.
+38929: Process 17 entered processor.
+43216: Process 17 fully executed.
+43226: Process 30 entered processor.
+48724: Process 30 fully executed.
+48734: Process 33 entered processor.
+53070: Process 33 fully executed.
+53080: Process 19 entered processor.
+58659: Process 19 fully executed.
+58669: Process 34 entered processor.
+63408: Process 34 fully executed.
+63418: Process 9 entered processor.
+69050: Process 9 fully executed.
+69060: Process 35 entered processor.
+73258: Process 35 fully executed.
+73268: Process 15 entered processor.
+79315: Process 15 fully executed.
+79325: Process 36 entered processor.
+84923: Process 36 fully executed.
+84933: Process 1 entered processor.
+91013: Process 1 fully executed.
+91023: Process 37 entered processor.
+96380: Process 37 fully executed.
+96390: Process 31 entered processor.
+102568: Process 31 fully executed.
+102578: Process 38 entered processor.
+109148: Process 38 fully executed.
+109158: Process 18 entered processor.
+115915: Process 18 fully executed.
+115925: Process 39 entered processor.
+117137: Process 39 fully executed.
+117147: Process 14 entered processor.
+123969: Process 14 fully executed.
+123979: Process 40 entered processor.
+128975: Process 40 fully executed.
+128985: Process 13 entered processor.
+135972: Process 13 fully executed.
+135982: Process 21 entered processor.
+142990: Process 21 fully executed.
+143000: Process 3 entered processor.
+150308: Process 3 fully executed.
+150318: Process 42 entered processor.
+157139: Process 42 fully executed.
+157149: Process 6 entered processor.
+164568: Process 6 fully executed.
+164578: Process 43 entered processor.
+170618: Process 43 fully executed.
+170628: Process 2 entered processor.
+178245: Process 2 fully executed.
+178255: Process 44 entered processor.
+182019: Process 44 fully executed.
+182029: Process 24 entered processor.
+189955: Process 24 fully executed.
+189965: Process 45 entered processor.
+195782: Process 45 fully executed.
+195792: Process 25 entered processor.
+204336: Process 25 fully executed.
+204346: Process 46 entered processor.
+212668: Process 46 fully executed.
+212678: Process 41 entered processor.
+221721: Process 41 fully executed.
+221731: Process 47 entered processor.
+223804: Process 47 fully executed.
+223814: Process 12 entered processor.
+233603: Process 12 fully executed.
+233613: Process 48 entered processor.
+237208: Process 48 fully executed.
+237218: Process 32 entered processor.
+247111: Process 32 fully executed.
+247121: Process 49 entered processor.
+253607: Process 49 fully executed.
+253617: Process 28 entered processor.
+264387: Process 28 fully executed.
+264387: Process 28 entered processor.

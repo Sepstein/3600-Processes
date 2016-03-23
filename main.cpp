@@ -57,13 +57,13 @@ int main(int argc,char* argv[]){
 		process_method_used="First In First Out";
 		if(strcasecmp(which_processors.c_str(),"single")==0||strcasecmp(which_processors.c_str(),"both")==0){
 			number_processors=1;
-			FIFO_single_processor.first_in_first_out(number_processors,"first_in_first_out");
+			FIFO_single_processor.first_in_first_out(number_processors,"first_in_first_out_single");
 			print_finish_message(process_method_used,number_processors);
 			FIFO_single_processor.print_stats(number_processors,process_method_used);
 		}
 		if(strcasecmp(which_processors.c_str(),"quad")==0||strcasecmp(which_processors.c_str(),"both")==0){
 			number_processors=4;
-			FIFO_quad_processor.first_in_first_out(number_processors,"first_in_first_out");
+			FIFO_quad_processor.first_in_first_out(number_processors,"first_in_first_out_quad");
 			print_finish_message(process_method_used,number_processors);
 			FIFO_quad_processor.print_stats(number_processors,process_method_used);
 		}
@@ -73,13 +73,13 @@ int main(int argc,char* argv[]){
 		process_method_used="Shortest Job First";
 		if(strcasecmp(which_processors.c_str(),"single")==0||strcasecmp(which_processors.c_str(),"both")==0){
 			number_processors=1;
-			SJF_single_processor.shortest_job_first(number_processors,"shortest_job_first");
+			SJF_single_processor.shortest_job_first(number_processors,"shortest_job_first_single");
 			print_finish_message(process_method_used,number_processors);
 			SJF_single_processor.print_stats(number_processors,process_method_used);
 		}
 		if(strcasecmp(which_processors.c_str(),"quad")==0||strcasecmp(which_processors.c_str(),"both")==0){
 			number_processors=4;
-			SJF_quad_processor.shortest_job_first(number_processors,"shortest_job_first");
+			SJF_quad_processor.shortest_job_first(number_processors,"shortest_job_first_quad");
 			print_finish_message(process_method_used,number_processors);
 			SJF_quad_processor.print_stats(number_processors,process_method_used);
 		}

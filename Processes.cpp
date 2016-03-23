@@ -31,43 +31,67 @@ void Process::ready_process(){
 
 void Process::round_robin(int number_of_processors,std::string file_name){
 	std::ofstream myfile;
+	std::ofstream csv_wait;
 	std::string log_file=file_name+".log";
+	std::string csv_wait_file=file_name+"_wait.csv";
 	myfile.open(log_file.c_str(),std::fstream::out);
+	csv_wait.open(csv_wait_file.c_str(),std::fstream::out);
 	bool multiple_switch_check=false;
+	context_switch_penalty=new int[number_of_processors];
+	for(int i=0;i<number_of_processors;i++)
+		context_switch_penalty[i]=0;
 	while(processes_completed!=TOTAL_PROCESSES){
 		if(TOTAL_PROCESSES!=number_processes_arrived){
 			if(Process_list[number_processes_arrived].entrance_time<=time_passed){
 				myfile<<time_passed<<": Process "<<Process_list[number_processes_arrived].process_ID<<" arrived."<<std::endl;
 				ready_process();
-				if(number_processes_arrived<=number_of_processors)
-					myfile<<time_passed+context_switch_penalty<<": Process "<<Process_list[number_processes_arrived-1].process_ID<<" executing."<<std::endl;
+				if(number_processes_arrived<number_of_processors)
+					myfile<<time_passed+context_switch_penalty[number_processes_arrived]<<": Process "<<Process_list[number_processes_arrived-1].process_ID<<" executing."<<std::endl;
 			}
 		}
-		++time_passed;
 		int number_processors_used=number_of_processors_to_use(number_of_processors);//sets number of processors that will be used
 		for(int i=0;i<number_processors_used;i++){//cycles through the simulation of what is going on in each process
-			++Process_list[i].time_spent;//each of these passings counts as a cycle
+		//	std::cout<<context_switch_penalty[i]<<"-";
 			if(Process_list[i].time_spent==Process_list[i].number_of_cycles){//if the process is done, delete it
-				myfile<<time_passed+context_switch_penalty<<": Process "<<Process_list[i].process_ID<<" fully executed."<<std::endl;
+				csv_wait<<Process_list[i].process_ID<<","<<time_passed+context_switch_penalty[i]-Process_list[i].number_of_cycles-Process_list[i].entrance_time<<std::endl;
+				myfile<<time_passed+context_switch_penalty[i]<<": Process "<<Process_list[i].process_ID<<" fully executed."<<std::endl;
 				remove_process(number_of_processors,i,file_name,number_processors_used);
+				if(number_processes_ready>number_of_processors)
+					myfile<<time_passed+context_switch_penalty[i]<<": Process "<<Process_list[i].process_ID<<" executing."<<std::endl;
 			}
 			else if((Process_list[i].time_spent%TIME_QUANTUM==0)&&(number_processes_ready>number_of_processors+i)){//if time quantum is spent, will rotate to new process
-				myfile<<time_passed+context_switch_penalty<<": Process "<<Process_list[i].process_ID<<" time quantum expired."<<std::endl;
+				myfile<<time_passed+context_switch_penalty[i]<<": Process "<<Process_list[i].process_ID<<" time quantum expired."<<std::endl;
 				rotate_processes(number_processors_used,i,multiple_switch_check);
 				multiple_switch_check=true;
-				myfile<<time_passed+context_switch_penalty<<": Rotating in process "<<Process_list[i].process_ID<<"."<<std::endl;
+				myfile<<time_passed+context_switch_penalty[i]<<": Rotating in process "<<Process_list[i].process_ID<<"."<<std::endl;
 			}
+			++Process_list[i].time_spent;//each of these passings counts as a cycle
 		}
+		//std::cout<<std::endl;
+		//std::cin.ignore();
+		++time_passed;
 		multiple_switch_check=false;
 	}
-	time_passed+=context_switch_penalty;
+	for(int i=0;i<number_of_processors;i++){
+		time_passed+=context_switch_penalty[i];
+		total_context_switch_penaly+=context_switch_penalty[i];
+	}
 	myfile.close();
+	csv_wait.close();
+	delete[] context_switch_penalty;
 }
 
 void Process::shortest_job_first(int number_of_processors,std::string file_name){
 	std::ofstream myfile;
+	std::ofstream csv_wait;
 	std::string log_file=file_name+".log";
+	std::string csv_file=file_name+".csv";
 	myfile.open(log_file.c_str(),std::fstream::out);
+	std::string csv_wait_file=file_name+"_wait.csv";
+	csv_wait.open(csv_wait_file.c_str(),std::fstream::out);
+	context_switch_penalty=new int[number_of_processors];
+	for(int i=0;i<number_of_processors;i++)
+		context_switch_penalty[i]=0;
 	while(processes_completed!=TOTAL_PROCESSES){
 		if(TOTAL_PROCESSES!=number_processes_arrived){
 			if(Process_list[number_processes_ready].entrance_time==time_passed){
@@ -87,19 +111,33 @@ void Process::shortest_job_first(int number_of_processors,std::string file_name)
 		for(int i=0;i<number_processors_used;i++){//cycles through the simulation of what is going on in each process
 			++Process_list[i].time_spent;//each of these passings counts as a cycle
 			if(Process_list[i].time_spent==Process_list[i].number_of_cycles){//if the process is done, delete it
-				myfile<<time_passed+context_switch_penalty<<": Process "<<Process_list[i].process_ID<<" fully executed."<<std::endl;
+				csv_wait<<Process_list[i].process_ID<<","<<time_passed+context_switch_penalty[i]-Process_list[i].number_of_cycles-Process_list[i].entrance_time<<std::endl;
+				myfile<<time_passed+context_switch_penalty[i]<<": Process "<<Process_list[i].process_ID<<" fully executed."<<std::endl;
 				remove_process(number_of_processors,i,file_name,number_processors_used);
+				myfile<<time_passed+context_switch_penalty[i]<<": Process "<<Process_list[i].process_ID<<" entered processor."<<std::endl;
+
 			}
 		}
 	}
-	time_passed+=context_switch_penalty;
+	for(int i=0;i<number_of_processors;i++){
+		time_passed+=context_switch_penalty[i];
+		total_context_switch_penaly+=context_switch_penalty[i];
+	}
 	myfile.close();
+	csv_wait.close();
+	delete[] context_switch_penalty;
 }
 
 void Process::first_in_first_out(int number_of_processors,std::string file_name){
 	std::ofstream myfile;
+	std::ofstream csv_wait;
 	std::string log_file=file_name+".log";
 	myfile.open(log_file.c_str(),std::fstream::out);
+	std::string csv_wait_file=file_name+"_wait.csv";
+	csv_wait.open(csv_wait_file.c_str(),std::fstream::out);
+	context_switch_penalty=new int[number_of_processors];
+	for(int i=0;i<number_of_processors;i++)
+		context_switch_penalty[i]=0;
 	while(processes_completed!=TOTAL_PROCESSES){
 		if(TOTAL_PROCESSES!=number_processes_arrived){
 			if(Process_list[number_processes_arrived].entrance_time<=time_passed){
@@ -112,32 +150,39 @@ void Process::first_in_first_out(int number_of_processors,std::string file_name)
 		for(int i=0;i<number_processors_used;i++){//cycles through the simulation of what is going on in each process
 			++Process_list[i].time_spent;//each of these passings counts as a cycle				
 			if(Process_list[i].time_spent==Process_list[i].number_of_cycles){//if the process is done, delete it
-				myfile<<time_passed<<": Process "<<Process_list[i].process_ID<<" fully executed."<<std::endl;
+				csv_wait<<Process_list[i].process_ID<<","<<time_passed+context_switch_penalty[i]-Process_list[i].number_of_cycles-Process_list[i].entrance_time<<std::endl;
+				myfile<<time_passed+context_switch_penalty[i]<<": Process "<<Process_list[i].process_ID<<" fully executed."<<std::endl;
 				remove_process(number_of_processors,i,file_name,number_processors_used);
+				myfile<<time_passed+context_switch_penalty[i]<<": Process "<<Process_list[i].process_ID<<" entered processor."<<std::endl;
 			}
 		}
 	}
-	time_passed=context_switch_penalty;
+	for(int i=0;i<number_of_processors;i++){
+		time_passed+=context_switch_penalty[i];
+		total_context_switch_penaly+=context_switch_penalty[i];
+	}
 	myfile.close();
+	csv_wait.close();
+	delete[] context_switch_penalty;
 }
 
 void Process::remove_process(int number_of_processors,int i,std::string file_name,int number_processors_used){
 	++processes_completed;
-	Process_list[i].completion_time=time_passed;
-	average_completion_time=(average_completion_time+Process_list[i].completion_time)/processes_completed;
-	Process_list[i].wait_time=Process_list[i].completion_time-Process_list[i].number_of_cycles-Process_list[i].entrance_time;
-	average_wait_time=(average_wait_time+Process_list[i].wait_time)/processes_completed;
+	Process_list[i].completion_time=time_passed+context_switch_penalty[i];
+	average_completion_time=(average_completion_time+Process_list[i].completion_time);
+	Process_list[i].wait_time=Process_list[i].completion_time-Process_list[i].time_spent+context_switch_penalty[i]-Process_list[i].entrance_time;
+	average_wait_time=(average_wait_time+Process_list[i].wait_time);
 	print_to_file(file_name,number_of_processors,i);
 	Process_list[i]=Process_list[number_processors_used];
 	Process_list.erase(Process_list.begin()+number_processors_used);
 	if(number_processes_ready>number_of_processors)
-		context_switch_penalty+=10;
+		context_switch_penalty[i]=context_switch_penalty[i]+10;
 	--number_processes_ready;
 }
 
 void Process::rotate_processes(int number_processors_used,int i,bool multiple_switch_check){
 	if(multiple_switch_check==false)
-		context_switch_penalty+=10;
+		context_switch_penalty[i]+=10;
 	Process_values temp=Process_list[i];
 	Process_list[i]=Process_list[number_processors_used];
 	std::rotate(Process_list.begin()+number_processors_used,Process_list.begin()+number_processors_used+1,Process_list.begin()+number_processes_ready);
@@ -154,6 +199,7 @@ int Process::number_of_processors_to_use(int number_of_processors){
 /*******************************************************************
 Function: Write processes to specified file
 Param:
+	
 	none
 Return:
 	void
@@ -186,10 +232,10 @@ Return:
 	void
 ***************************************************************/
 void Process::print_stats(int number_of_processors,std::string process_method_used){
-	std::cout<<number_of_processors<<" processor(s):"<<std::endl;
-	std::cout<<"-Average wait time: "<<average_wait_time<<" cycles"<<std::endl;
-	std::cout<<"-Average completion time: "<<average_completion_time<<" cycles"<<std::endl;
-	std::cout<<"-Context switch penalty: "<<context_switch_penalty<<" cycles"<<std::endl;
+	std::cout<<"-Total completion time: "<<time_passed<<" cyclees"<<std::endl;
+	std::cout<<"-Average completion time: "<<average_completion_time/TOTAL_PROCESSES<<" cycles"<<std::endl;
+	std::cout<<"-Average wait time: "<<average_wait_time/TOTAL_PROCESSES<<" cycles"<<std::endl;
+	std::cout<<"-Context switch penalty: "<<total_context_switch_penaly<<" cycles"<<std::endl;
 	std::cout<<std::endl;
 }
 
@@ -236,6 +282,7 @@ Process::Process(){
 	number_of_processes=0;
 	number_processes_ready=0;
 	number_processes_arrived=0;
+	total_context_switch_penaly=0;
 }
 
 /**********************************************************************

@@ -13,6 +13,8 @@ File: Contains libraries and constant declarations.
 #include <algorithm>
 #include <strings.h>
 #include <string>
+#include <stdio.h>
+#include <string.h>
 
 //defintion of the processor property ranges as defined in the problem.
 const int MAX_CYCLE=11000;
