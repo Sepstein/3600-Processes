@@ -1,13 +1,14 @@
 /**********************************************
-Name: Jamie Simpson
+Name: Jamie Simpson, Sam Epstein, Juan Apolinar
 Class: CSCE 4600-001
-Program: Process Simulator Pt.1 
+Program: Project 1 comparing different scheduling algorithms. FIFO, Round Robin, SJF
 File: Main function which declares instances
 ***********************************************/
 
 #include "Processes.h"
 
 int main(int argc,char* argv[]){
+	//takes in the arguements which consist of the scheduling process and whether it is single core or quad core 
 	std::string process_choice="all";
 	std::string which_processors="both";
 	if(argc==2)
@@ -88,6 +89,7 @@ int main(int argc,char* argv[]){
 }
 
 void display_options(){
+	//tells the user what algorithms are available and how many processors will be used
 	std::cout<<"First argument options are:"<<std::endl;
 	std::cout<<"RR (Round Robin)"<<std::endl;
 	std::cout<<"SJF (Shortest Job First)"<<std::endl;
