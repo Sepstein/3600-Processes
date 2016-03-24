@@ -63,7 +63,7 @@ void Process::round_robin(int number_of_processors,std::string file_name){
 				myfile<<time_passed+context_switch_penalty[i]<<": Process "<<Process_list[i].process_ID<<" time quantum expired."<<std::endl;
 				rotate_processes(number_processors_used,i,multiple_switch_check);
 				multiple_switch_check=true;
-				myfile<<time_passed+context_switch_penalty[i]<<": Rotating in process "<<Process_list[i].process_ID<<"."<<std::endl;
+//				myfile<<time_passed+context_switch_penalty[i]<<": Rotating in process "<<Process_list[i].process_ID<<"."<<std::endl;
 			}
 			++Process_list[i].time_spent;//each of these passings counts as a cycle
 		}
@@ -116,7 +116,7 @@ void Process::shortest_job_first(int number_of_processors,std::string file_name)
 				csv_wait<<Process_list[i].process_ID<<","<<time_passed+context_switch_penalty[i]-Process_list[i].number_of_cycles-Process_list[i].entrance_time<<std::endl;
 				myfile<<time_passed+context_switch_penalty[i]<<": Process "<<Process_list[i].process_ID<<" fully executed."<<std::endl;
 				remove_process(number_of_processors,i,file_name,number_processors_used);
-				myfile<<time_passed+context_switch_penalty[i]<<": Process "<<Process_list[i].process_ID<<" entered processor."<<std::endl;
+//				myfile<<time_passed+context_switch_penalty[i]<<": Process "<<Process_list[i].process_ID<<" entered processor."<<std::endl;
 
 			}
 		}
@@ -156,7 +156,7 @@ void Process::first_in_first_out(int number_of_processors,std::string file_name)
 				csv_wait<<Process_list[i].process_ID<<","<<time_passed+context_switch_penalty[i]-Process_list[i].number_of_cycles-Process_list[i].entrance_time<<std::endl;
 				myfile<<time_passed+context_switch_penalty[i]<<": Process "<<Process_list[i].process_ID<<" fully executed."<<std::endl;
 				remove_process(number_of_processors,i,file_name,number_processors_used);
-				myfile<<time_passed+context_switch_penalty[i]<<": Process "<<Process_list[i].process_ID<<" entered processor."<<std::endl;
+//				myfile<<time_passed+context_switch_penalty[i]<<": Process "<<Process_list[i].process_ID<<" entered processor."<<std::endl;
 			}
 		}
 	}
